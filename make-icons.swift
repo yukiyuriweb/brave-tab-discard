@@ -1,5 +1,5 @@
-// アイコン生成: swift make-icons.swift
-// 3 枚のタブのうち、左だけ塗りつぶし（アクティブ）、残りは輪郭だけ（外した）で表す。
+// Generates the icons: swift make-icons.swift
+// A browser window whose active tab is solid and joined to the body, with the discarded tabs faded.
 import AppKit
 
 func draw(size: Int) -> Data {
@@ -19,12 +19,12 @@ func draw(size: Int) -> Data {
                      xRadius: r * s, yRadius: r * s)
     }
 
-    // ウィンドウ本体とアクティブなタブ（白でつなげる）
+    // Window body and the active tab, joined in white
     NSColor.white.setFill()
     rounded(18, 22, 92, 64, 8).fill()
     rounded(18, 74, 34, 32, 7).fill()
 
-    // 外したタブ（薄く）
+    // Discarded tabs, faded
     NSColor.white.withAlphaComponent(0.4).setFill()
     rounded(57, 91, 24, 15, 5).fill()
     rounded(86, 91, 24, 15, 5).fill()

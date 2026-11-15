@@ -1,5 +1,5 @@
-// ツールバーのボタンで、全ウィンドウのアクティブなタブ以外を discard する。
-// 音を再生中のタブは残す。外したタブはクリックすると再読み込みされる。
+// The toolbar button discards every tab except the active one in each window.
+// Tabs playing audio are kept. Discarded tabs reload when clicked.
 chrome.action.onClicked.addListener(async () => {
   const tabs = await chrome.tabs.query({ active: false, discarded: false });
   let count = 0;
@@ -8,7 +8,7 @@ chrome.action.onClicked.addListener(async () => {
     try {
       if (await chrome.tabs.discard(tab.id)) count++;
     } catch {
-      // brave:// のページや読み込み中のタブなど、外せないものは飛ばす
+      // Skip tabs that can't be discarded, such as brave:// pages and tabs still loading
     }
   }
   await chrome.action.setBadgeText({ text: String(count) });
