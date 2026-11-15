@@ -21,6 +21,7 @@ This extension calls `chrome.tabs.discard`, the same mechanism Memory Saver uses
   - Tabs the browser cannot discard, such as `brave://` or `chrome://` pages and tabs that are still loading
 - The number of discarded tabs appears on the toolbar button for 3 seconds.
 - It requests no permissions.
+- Its description and button title are in English and Japanese, following the browser's language.
 
 ## Install
 
@@ -41,6 +42,7 @@ A renderer process can be shared by several tabs. Discarding some of them does n
 |---|---|
 | `manifest.json` | Extension definition (Manifest V3) |
 | `background.js` | What happens when you click the button |
+| `_locales/` | English and Japanese strings |
 | `icons/` | Icons (16, 32, 48 and 128 px) |
 | `make-icons.swift` | Script that generates the icons (macOS) |
 

@@ -1,0 +1,8 @@
+{
+  "extDescription": {
+    "message": "アクティブなタブ以外をメモリから外す（クリックで再読み込み）"
+  },
+  "actionTitle": {
+    "message": "アクティブなタブ以外を外す"
+  }
+}

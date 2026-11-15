@@ -1,0 +1,8 @@
+{
+  "extDescription": {
+    "message": "Discard every tab except the active one; discarded tabs reload when clicked."
+  },
+  "actionTitle": {
+    "message": "Discard inactive tabs"
+  }
+}
