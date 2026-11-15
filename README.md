@@ -1,53 +1,55 @@
 # Discard Inactive Tabs
 
-ツールバーのボタンを押すと、全ウィンドウのアクティブなタブ以外をメモリから外す（discard する）ブラウザ拡張機能です。外したタブはタブバーに残り、クリックすると再読み込みされます。
+A one-click browser extension that discards every tab except the active one in each window. Discarded tabs stay in the tab strip and reload when you click them.
 
-Brave で作りましたが、Chromium 系のブラウザ（Chrome、Edge、Vivaldi など）でも動きます。
+Made for Brave, and works in any Chromium-based browser (Chrome, Edge, Vivaldi and others).
 
-## なぜ作ったか
+## Why
 
-Brave のメモリセーバーは、一定時間使っていないタブを自動で外します。最大の設定にしても、すぐには外れません。これまでは、アクティビティモニタで renderer プロセスを強制終了して、メモリを空けていました。
+Brave's Memory Saver discards tabs you haven't used for a while, but even on its most aggressive setting it does not do it right away. The usual workaround is to force-quit renderer processes in Activity Monitor, which has two problems:
 
-強制終了には 2 つの問題があります。
+- You can't tell which renderer belongs to which tab, so you can kill the tab you are looking at.
+- Killed tabs show a crash page, and anything you were typing is lost.
 
-- どの renderer がどのタブを担当しているかが分からないので、いま見ているタブまで落とすことがある。
-- 落としたタブは「エラーが発生しました」の画面になり、入力途中の内容も消える。
+This extension calls `chrome.tabs.discard`, the same mechanism Memory Saver uses, immediately. The browser does the discarding itself, so the active tab is never touched and discarded tabs do not crash.
 
-この拡張機能は、メモリセーバーと同じ `chrome.tabs.discard` を使い、今すぐ外します。ブラウザ自身の仕組みで外すので、アクティブなタブには影響せず、外したタブもエラー画面になりません。
+## What it does
 
-## 動作
+- Tabs it keeps:
+  - The active tab in each window
+  - Tabs playing audio
+  - Tabs the browser cannot discard, such as `brave://` or `chrome://` pages and tabs that are still loading
+- The number of discarded tabs appears on the toolbar button for 3 seconds.
+- It requests no permissions.
 
-- 外さないタブ
-  - 各ウィンドウのアクティブなタブ
-  - 音を再生中のタブ
-  - `brave://` や `chrome://` のページ、読み込み途中のタブなど、ブラウザが外せないタブ
-- 外したタブの数を、ボタンのバッジに 3 秒間表示します。
-- 権限は何も要求しません。
+## Install
 
-## インストール
+1. Open `brave://extensions` (`chrome://extensions` in Chrome).
+2. Turn on Developer mode in the top-right corner.
+3. Click “Load unpacked” and choose this folder.
+4. Pin “Discard Inactive Tabs” to the toolbar from the puzzle-piece menu.
 
-1. `brave://extensions`（Chrome なら `chrome://extensions`）を開きます。
-2. 右上の「デベロッパーモード」をオンにします。
-3. 「パッケージ化されていない拡張機能を読み込む」を押し、このディレクトリを選びます。
-4. パズルのアイコンから「Discard Inactive Tabs」をツールバーにピン留めします。
+To use a keyboard shortcut, assign one at `brave://extensions/shortcuts`.
 
-キーボードで呼び出したいときは、`brave://extensions/shortcuts` でショートカットを割り当てます。
+## Note
 
-## 注意
+A renderer process can be shared by several tabs. Discarding some of them does not end the renderer while others still use it, so memory may drop less than it does when you kill renderers by hand.
 
-renderer プロセスは複数のタブで共有されることがあります。共有しているタブの一部だけを外しても、残りのタブがある限りその renderer は終了しません。そのため、メモリの減り方が renderer を強制終了したときより小さくなることがあります。
+## Files
 
-## ファイル
-
-| ファイル | 内容 |
+| File | Contents |
 |---|---|
-| `manifest.json` | 拡張機能の定義（Manifest V3） |
-| `background.js` | ボタンを押したときの処理 |
-| `icons/` | アイコン（16・32・48・128px） |
-| `make-icons.swift` | アイコンを生成するスクリプト（macOS） |
+| `manifest.json` | Extension definition (Manifest V3) |
+| `background.js` | What happens when you click the button |
+| `icons/` | Icons (16, 32, 48 and 128 px) |
+| `make-icons.swift` | Script that generates the icons (macOS) |
 
-アイコンを作り直すときは、次を実行します。
+To regenerate the icons:
 
 ```sh
 swift make-icons.swift
 ```
+
+## License
+
+[MIT](LICENSE)
