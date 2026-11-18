@@ -1,8 +1,14 @@
 {
   "extDescription": {
-    "message": "Discard every tab except the active one; discarded tabs reload when clicked."
+    "message": "Discard tabs you haven't viewed for a while, or all inactive tabs at once from the toolbar; discarded tabs reload when clicked."
   },
   "actionTitle": {
     "message": "Discard inactive tabs"
+  },
+  "optionsMinutesLabel": {
+    "message": "Discard tabs not viewed for (minutes):"
+  },
+  "optionsMinutesHelp": {
+    "message": "Set 0 to turn off automatic discarding. The toolbar button still discards every inactive tab at once."
   }
 }
