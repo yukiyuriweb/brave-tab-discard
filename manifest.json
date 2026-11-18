@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Discard Inactive Tabs",
-  "version": "0.1",
+  "version": "0.2",
   "default_locale": "en",
   "description": "__MSG_extDescription__",
   "icons": {
@@ -19,5 +19,13 @@
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "alarms",
+    "storage"
+  ]
 }
